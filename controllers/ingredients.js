@@ -4,6 +4,8 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const apiKey = process.env.API_KEY;
+const searchURL = "https://api.spoonacular.com/recipes/findByIngredients";
 
 const getIngredientsFromFile = (filePath) => {
   try {
@@ -18,7 +20,31 @@ const getIngredientsFromFile = (filePath) => {
   }
 };
 
+async function searchByIngredients(ingredientsArray, options = {}) {
+  try {
+    const { number = 10, ranking = 1, ignorePantry = false } = options;
+    const ingredients = ingredientsArray.join(",");
+
+    const res = await fetch(
+      `${searchURL}?ingredients=${encodeURIComponent(
+        ingredients
+      )}&number=${number}&ranking=${ranking}&ignorePantry=${ignorePantry}&apiKey=${apiKey}`
+    );
+
+    if (!res.ok) {
+      throw new Error(`API Error: ${res.status}`);
+    }
+
+    const recipes = await res.json();
+    return recipes;
+  } catch (error) {
+    console.log(`Failed to search by ingredients: ${error.message}`);
+  }
+}
+
 export const getAllIngredients = (req, res) => {
-  getIngredientsFromFile("../ingredients.json");
-  res.status(200);
+  const ingredients = getIngredientsFromFile("../ingredients.json");
+  res.status(200).json(ingredients);
 };
+
+export const findRecipes = (req, res) => {};
