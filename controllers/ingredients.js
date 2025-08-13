@@ -22,13 +22,13 @@ const getIngredientsFromFile = (filePath) => {
 
 async function searchByIngredients(ingredientsArray, options = {}) {
   try {
-    const { number = 10, ranking = 1, ignorePantry = false } = options;
+    const { number = 10 } = options;
     const ingredients = ingredientsArray.join(",");
 
     const res = await fetch(
       `${searchURL}?ingredients=${encodeURIComponent(
         ingredients
-      )}&number=${number}&ranking=${ranking}&ignorePantry=${ignorePantry}&apiKey=${apiKey}`
+      )}&ranking=2&number=${number}&ignorePantry=false&apiKey=${apiKey}`
     );
 
     if (!res.ok) {
@@ -51,10 +51,9 @@ export const getAllIngredients = (req, res) => {
 export const findRecipes = async (req, res, next) => {
   try {
     if (
-      !req.body.ingredients ||
       !req.body.number ||
       req.body.ingredients.length === 0 ||
-      Array.isArray(req.body.ingredients)
+      !Array.isArray(req.body.ingredients)
     ) {
       const error = new Error("Missing body parameters");
       error.status = 400;
@@ -62,6 +61,9 @@ export const findRecipes = async (req, res, next) => {
     }
 
     const ingredients = req.body.ingredients;
+    for (let i = 0; i < ingredients.length; i++) {
+      ingredients[i] = ingredients[i].toLowerCase();
+    }
     const numberOfRecipes = req.body.number || 10;
     const listOfIngredients = getIngredientsFromFile("../ingredients.json");
     const ingredientCheck = ingredients.filter(
