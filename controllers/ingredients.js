@@ -39,6 +39,7 @@ async function searchByIngredients(ingredientsArray, options = {}) {
     return recipes;
   } catch (error) {
     console.log(`Failed to search by ingredients: ${error.message}`);
+    throw error;
   }
 }
 
@@ -47,4 +48,32 @@ export const getAllIngredients = (req, res) => {
   res.status(200).json(ingredients);
 };
 
-export const findRecipes = (req, res) => {};
+export const findRecipes = async (req, res, next) => {
+  if (
+    !req.body.ingredients ||
+    !req.body.number ||
+    req.body.ingredients.length === 0
+  ) {
+    const error = new Error("Missing body parameters");
+    error.status(400);
+    return next(error);
+  }
+
+  const ingredients = req.body.ingredients;
+  const numberOfRecipes = req.body.number;
+  const listOfIngredients = getIngredientsFromFile("../ingredients.json");
+  const ingredientCheck = ingredients.filter(
+    (item) => !listOfIngredients.includes(item)
+  );
+
+  if (ingredientCheck.length > 0) {
+    const error = new Error(
+      `Problems with these ingredients: ${ingredientCheck}`
+    );
+    error.status = 400;
+    return next(error);
+  }
+
+  const recipes = searchByIngredients(ingredients, { number: numberOfRecipes });
+  res.status(200).json(recipes);
+};
