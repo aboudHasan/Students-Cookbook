@@ -49,31 +49,38 @@ export const getAllIngredients = (req, res) => {
 };
 
 export const findRecipes = async (req, res, next) => {
-  if (
-    !req.body.ingredients ||
-    !req.body.number ||
-    req.body.ingredients.length === 0
-  ) {
-    const error = new Error("Missing body parameters");
-    error.status(400);
-    return next(error);
-  }
+  try {
+    if (
+      !req.body.ingredients ||
+      !req.body.number ||
+      req.body.ingredients.length === 0 ||
+      Array.isArray(req.body.ingredients)
+    ) {
+      const error = new Error("Missing body parameters");
+      error.status = 400;
+      return next(error);
+    }
 
-  const ingredients = req.body.ingredients;
-  const numberOfRecipes = req.body.number;
-  const listOfIngredients = getIngredientsFromFile("../ingredients.json");
-  const ingredientCheck = ingredients.filter(
-    (item) => !listOfIngredients.includes(item)
-  );
-
-  if (ingredientCheck.length > 0) {
-    const error = new Error(
-      `Problems with these ingredients: ${ingredientCheck}`
+    const ingredients = req.body.ingredients;
+    const numberOfRecipes = req.body.number || 10;
+    const listOfIngredients = getIngredientsFromFile("../ingredients.json");
+    const ingredientCheck = ingredients.filter(
+      (item) => !listOfIngredients.includes(item)
     );
-    error.status = 400;
-    return next(error);
-  }
 
-  const recipes = searchByIngredients(ingredients, { number: numberOfRecipes });
-  res.status(200).json(recipes);
+    if (ingredientCheck.length > 0) {
+      const error = new Error(
+        `Problems with these ingredients: ${ingredientCheck}`
+      );
+      error.status = 400;
+      return next(error);
+    }
+
+    const recipes = await searchByIngredients(ingredients, {
+      number: numberOfRecipes,
+    });
+    res.status(200).json(recipes);
+  } catch (error) {
+    next(error);
+  }
 };
