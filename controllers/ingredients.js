@@ -48,7 +48,7 @@ async function searchByIngredients(ingredientsArray, options = {}) {
     const res = await fetch(
       `${searchURL}?ingredients=${encodeURIComponent(testIngredients)}&number=${
         number * 5
-      }&ranking=1&ignorePantry=false&apiKey=${apiKey}`
+      }&ranking=2&ignorePantry=false&apiKey=${apiKey}`
     );
 
     if (!res.ok) {
