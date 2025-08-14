@@ -6,6 +6,21 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const apiKey = process.env.API_KEY;
 const searchURL = "https://api.spoonacular.com/recipes/findByIngredients";
+const complexSearchURL = "https://api.spoonacular.com/recipes/complexSearch";
+const pantryItems = [
+  "water",
+  "ice",
+  "flour",
+  "sugar",
+  "cane sugar",
+  "olive oil",
+  "cooking fat",
+  "cooking oil",
+  "vegetable oil",
+  "black pepper",
+  "sea salt",
+  "salt",
+];
 
 const getIngredientsFromFile = (filePath) => {
   try {
@@ -23,12 +38,13 @@ const getIngredientsFromFile = (filePath) => {
 async function searchByIngredients(ingredientsArray, options = {}) {
   try {
     const { number = 10 } = options;
-    const ingredients = ingredientsArray.join(",");
+    const combinedIngredients = ingredientsArray.concat(pantryItems);
+    const ingredients = combinedIngredients.join(",");
 
     const res = await fetch(
-      `${searchURL}?ingredients=${encodeURIComponent(
+      `${complexSearchURL}?includeIngredients=${encodeURIComponent(
         ingredients
-      )}&ranking=2&number=${number}&ignorePantry=false&apiKey=${apiKey}`
+      )}&number=${number}&sort=min-missing-ingredients&fillIngredients=true&apiKey=${apiKey}`
     );
 
     if (!res.ok) {
@@ -51,7 +67,6 @@ export const getAllIngredients = (req, res) => {
 export const findRecipes = async (req, res, next) => {
   try {
     if (
-      !req.body.number ||
       req.body.ingredients.length === 0 ||
       !Array.isArray(req.body.ingredients)
     ) {
@@ -64,7 +79,7 @@ export const findRecipes = async (req, res, next) => {
     for (let i = 0; i < ingredients.length; i++) {
       ingredients[i] = ingredients[i].toLowerCase();
     }
-    const numberOfRecipes = req.body.number || 10;
+    const numberOfRecipes = req.body.number || 5;
     const listOfIngredients = getIngredientsFromFile("../ingredients.json");
     const ingredientCheck = ingredients.filter(
       (item) => !listOfIngredients.includes(item)
