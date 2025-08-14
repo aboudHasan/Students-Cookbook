@@ -43,12 +43,12 @@ async function searchByIngredients(ingredientsArray, options = {}) {
     const combinedIngredients = ingredientsArray.concat(pantryItems);
     const ingredients = combinedIngredients.join(",");
     const testIngredients = ingredientsArray.join(",");
-    console.log(ingredients);
+    // console.log(ingredients);
 
     const res = await fetch(
-      `${searchURL}?includeIngredients=${encodeURIComponent(
-        ingredients
-      )}&number=${number}&sort=min-missing-ingredients&apiKey=${apiKey}`
+      `${searchURL}?ingredients=${encodeURIComponent(
+        testIngredients
+      )}&number=${number}&ranking=2&ignorePantry=false&apiKey=${apiKey}`
     );
 
     if (!res.ok) {
