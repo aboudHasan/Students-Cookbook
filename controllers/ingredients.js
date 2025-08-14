@@ -44,7 +44,7 @@ async function searchByIngredients(ingredientsArray, options = {}) {
     const res = await fetch(
       `${complexSearchURL}?includeIngredients=${encodeURIComponent(
         ingredients
-      )}&number=${number}&sort=min-missing-ingredients&fillIngredients=true&apiKey=${apiKey}`
+      )}&number=${number}&sort=max-used-ingredients&fillIngredients=true&apiKey=${apiKey}`
     );
 
     if (!res.ok) {
