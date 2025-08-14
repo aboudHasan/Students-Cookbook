@@ -20,6 +20,8 @@ const pantryItems = [
   "black pepper",
   "sea salt",
   "salt",
+  "baking soda",
+  "baking powder",
 ];
 
 const getIngredientsFromFile = (filePath) => {
@@ -40,11 +42,13 @@ async function searchByIngredients(ingredientsArray, options = {}) {
     const { number = 10 } = options;
     const combinedIngredients = ingredientsArray.concat(pantryItems);
     const ingredients = combinedIngredients.join(",");
+    const testIngredients = ingredientsArray.join(",");
+    console.log(ingredients);
 
     const res = await fetch(
-      `${complexSearchURL}?includeIngredients=${encodeURIComponent(
+      `${searchURL}?includeIngredients=${encodeURIComponent(
         ingredients
-      )}&number=${number}&sort=max-used-ingredients&fillIngredients=true&apiKey=${apiKey}`
+      )}&number=${number}&sort=min-missing-ingredients&apiKey=${apiKey}`
     );
 
     if (!res.ok) {
