@@ -144,7 +144,7 @@ export const getAllIngredients = (req, res) => {
  * @param {Object} req - Express request object
  * @param {Object} req.body - Request body
  * @param {Array<string>} req.body.ingredients - Array of ingredient names to search with
- * @param {number} [req.body.number=5] - Number of recipes to return
+ * @param {number} [req.body.number] - Number of recipes to return
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  *

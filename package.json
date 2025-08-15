@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch --env-file=.env server.js"
+    "dev": "node --watch --env-file=.env server.js",
+    "copy-bootstrap": "cp node_modules/bootstrap/dist/css/bootstrap.min.css public/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js public/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "bootstrap": "^5.3.7"
+  }
 }
