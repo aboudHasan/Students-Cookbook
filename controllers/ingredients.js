@@ -46,9 +46,9 @@ async function searchByIngredients(ingredientsArray, options = {}) {
     // console.log(ingredients);
 
     const res = await fetch(
-      `${searchURL}?ingredients=${encodeURIComponent(testIngredients)}&number=${
-        number * 5
-      }&ranking=1&ignorePantry=false&apiKey=${apiKey}`
+      `${searchURL}?ingredients=${encodeURIComponent(
+        testIngredients
+      )}&number=50&ranking=2&ignorePantry=false&apiKey=${apiKey}`
     );
 
     if (!res.ok) {
@@ -59,16 +59,26 @@ async function searchByIngredients(ingredientsArray, options = {}) {
     const perfectMatches = recipes.filter(
       (item) => item.missedIngredientCount === 0
     );
+    const imperfectMatches = recipes.filter(
+      (item) => item.missedIngredientCount === 1
+    );
+    const badMatches = recipes.filter(
+      (item) => item.missedIngredientCount >= 2
+    );
+    const perfectMatchesCount = perfectMatches.length;
+    const imperfectMatchesCount = imperfectMatches.length;
+    const badMatchesCount = badMatches.length;
 
-    if (perfectMatches.length === 0) {
-      console.log("Could not find perfect matches");
-      const imperfectMatches = recipes.filter(
-        (item) => item.missedIngredientCount === 1
-      );
-      return imperfectMatches;
-    }
+    const allRecipes = {
+      perfectMatchesCount,
+      perfectMatches,
+      imperfectMatchesCount,
+      imperfectMatches,
+      badMatchesCount,
+      badMatches,
+    };
 
-    return perfectMatches;
+    return allRecipes;
   } catch (error) {
     console.log(`Failed to search by ingredients: ${error.message}`);
     throw error;
