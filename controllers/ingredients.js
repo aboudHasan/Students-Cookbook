@@ -46,9 +46,15 @@ async function searchByIngredients(ingredientsArray, options = {}) {
     // console.log(ingredients);
 
     const res = await fetch(
+<<<<<<< HEAD
       `${searchURL}?ingredients=${encodeURIComponent(
         testIngredients
       )}&number=50&ranking=2&ignorePantry=false&apiKey=${apiKey}`
+=======
+      `${searchURL}?ingredients=${encodeURIComponent(testIngredients)}&number=${
+        number * 5
+      }&ranking=2&ignorePantry=false&apiKey=${apiKey}`
+>>>>>>> refs/remotes/origin/master
     );
 
     if (!res.ok) {
