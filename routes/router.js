@@ -6,7 +6,11 @@
  */
 
 import express from "express";
-import { getAllIngredients, findRecipes } from "../controllers/ingredients.js";
+import {
+  getAllIngredients,
+  findRecipes,
+  getRecipeURL,
+} from "../controllers/ingredients.js";
 
 // Create Express router instance
 const router = express.Router();
@@ -17,8 +21,12 @@ const router = express.Router();
 
 // GET /api/getAllIngredients
 // Returns the complete list of available ingredients from the JSON file
-// Used by clients to populate ingredient selection interfaces
 router.get("/getAllIngredients", getAllIngredients);
+
+// GET /api/:id
+// Returns information about the recipe, but in this case, I'm just looking for the URL
+// Giving the JSON to the front-end so users can actually get the URL of the recipe
+router.get("/:id", getRecipeURL);
 
 // POST /api/findrecipes
 // Searches for recipes based on provided ingredients

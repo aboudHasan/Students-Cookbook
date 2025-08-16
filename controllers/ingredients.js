@@ -217,3 +217,22 @@ export const findRecipes = async (req, res, next) => {
     next(error);
   }
 };
+export const getRecipeURL = async (req, res, next) => {
+  try {
+    const recipeID = req.params.id;
+
+    const recipeURL = await fetch(
+      `https://api.spoonacular.com/recipes/${recipeID}/information?apiKey=${apiKey}`
+    );
+
+    if (!recipeURL.ok) {
+      throw new Error(`API Error: ${recipeURL.status}`);
+    }
+
+    const recipeInfo = await recipeURL.json();
+
+    res.status(200).json(recipeInfo);
+  } catch (error) {
+    next(error);
+  }
+};

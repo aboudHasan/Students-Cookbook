@@ -87,16 +87,31 @@ function createRecipeCard(recipe, missingType) {
     </div>
   `;
 
+  // Fetch only when clicked
+  card.addEventListener("click", async () => {
+    try {
+      const recipeURL = await getRecipeURL(recipe.id);
+      if (recipeURL) {
+        window.open(recipeURL, "_blank");
+      } else {
+        showError("No recipe URL found.");
+      }
+    } catch (error) {
+      console.error("Error opening recipe:", error);
+      showError("Could not open recipe.");
+    }
+  });
+
   return card;
 }
 
-function displayRecipes(data) {
+async function displayRecipes(data) {
   // Clear the ingredients container and replace with results
   ingredientsContainer.innerHTML = "";
   ingredientsContainer.className = "results-container";
   ingredientInput.setAttribute("disabled", "true");
 
-  // Create the three columns
+  // Create the three columns (existing code stays the same)
   const resultsHTML = `
     <div class="results-columns">
       <div class="results-column perfect-matches">
@@ -145,25 +160,48 @@ function displayRecipes(data) {
   // Populate perfect matches
   if (data.perfectMatchesCount > 0) {
     const perfectList = document.getElementById("perfectMatchesList");
-    data.perfectMatches.forEach((recipe) => {
-      perfectList.appendChild(createRecipeCard(recipe, "perfect"));
-    });
+    for (const recipe of data.perfectMatches) {
+      const card = await createRecipeCard(recipe, "perfect");
+      perfectList.appendChild(card);
+    }
   }
 
   // Populate imperfect matches
   if (data.imperfectMatchesCount > 0) {
     const imperfectList = document.getElementById("imperfectMatchesList");
-    data.imperfectMatches.forEach((recipe) => {
-      imperfectList.appendChild(createRecipeCard(recipe, "imperfect"));
-    });
+    for (const recipe of data.imperfectMatches) {
+      const card = await createRecipeCard(recipe, "imperfect");
+      imperfectList.appendChild(card);
+    }
   }
 
   // Populate bad matches
   if (data.badMatchesCount > 0) {
     const badList = document.getElementById("badMatchesList");
-    data.badMatches.forEach((recipe) => {
-      badList.appendChild(createRecipeCard(recipe, "bad"));
-    });
+    for (const recipe of data.badMatches) {
+      const card = await createRecipeCard(recipe, "bad");
+      badList.appendChild(card);
+    }
+  }
+}
+
+async function getRecipeURL(recipeID) {
+  try {
+    const res = await fetch(`http://localhost:8080/api/${recipeID}`);
+
+    if (!res.ok) {
+      throw new Error("Failed to get recipe URL");
+    }
+
+    const recipeInfo = await res.json();
+
+    const recipeUrl = recipeInfo.sourceUrl || recipeInfo.spoonacularSourceUrl;
+
+    return recipeUrl || null;
+  } catch (error) {
+    console.error("Error in getRecipeURL:", error);
+    showError(error.message);
+    return null;
   }
 }
 
@@ -200,7 +238,7 @@ ingredientInput.addEventListener("keypress", (e) => {
 findRecipesButton.addEventListener("click", async () => {
   const recipes = await getRecipes();
   if (recipes) {
-    displayRecipes(recipes);
+    await displayRecipes(recipes);
   }
 });
 
