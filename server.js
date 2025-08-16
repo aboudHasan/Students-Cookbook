@@ -28,6 +28,25 @@ const app = express();
  * Applied in order - each request passes through these middlewares
  */
 
+const corsOptions = {
+  origin:
+    process.env.NODE_ENV === "production"
+      ? ["https://students-cookbook.onrender.com/"]
+      : [
+          // Local development origins
+          "http://localhost:8080",
+          "http://localhost:5000",
+        ],
+  credentials: true, // Allow cookies and credentials
+  methods: ["GET", "POST", "OPTIONS"], // Only the methods you actually use
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "X-Requested-With",
+    "Accept",
+  ],
+};
+
 // Parse incoming JSON requests (Content-Type: application/json)
 // Enables req.body to contain parsed JSON data
 app.use(express.json());
