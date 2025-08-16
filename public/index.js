@@ -187,7 +187,9 @@ async function displayRecipes(data) {
 
 async function getRecipeURL(recipeID) {
   try {
-    const res = await fetch(`http://localhost:8080/api/${recipeID}`);
+    const res = await fetch(
+      `https://students-cookbook.onrender.com/api/${recipeID}`
+    );
 
     if (!res.ok) {
       throw new Error("Failed to get recipe URL");
@@ -210,15 +212,18 @@ async function getRecipes() {
     showError("Please add at least one ingredient");
     return;
   }
-  const res = await fetch("http://localhost:8080/api/findRecipes", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      ingredients: ingredients,
-    }),
-  });
+  const res = await fetch(
+    "https://students-cookbook.onrender.com/api/findrecipes",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ingredients: ingredients,
+      }),
+    }
+  );
   if (!res.ok) {
     showError(`Server Error: ${res.status}`);
     return;
