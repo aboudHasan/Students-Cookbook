@@ -3,9 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student's cookbook</title>
-    <link rel="stylesheet" href=".bootstrap.min.css" />
-    <script src="./bootstrap.bundle.min.js" defer></script>
+    <title>Student's Cookbook</title>
+    <link href="bootstrap.min.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet" />
   </head>
-  <body></body>
+  <body>
+    <div class="main-container">
+      <h1 class="app-title">Student's Cookbook</h1>
+
+      <div class="search-section">
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input"
+            id="ingredientInput"
+            placeholder="Enter an ingredient and press Enter..."
+            autocomplete="off"
+          />
+          <button class="find-recipes-btn" id="findRecipesBtn">
+            Find Recipes
+          </button>
+        </div>
+      </div>
+
+      <div class="ingredients-container" id="ingredientsContainer">
+        <div class="placeholder-text">Your ingredients will appear here...</div>
+      </div>
+    </div>
+
+    <script src="bootstrap.bundle.min.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>

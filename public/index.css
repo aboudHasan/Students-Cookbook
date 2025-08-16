@@ -1,0 +1,143 @@
+body {
+  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.app-title {
+  color: #1a5d1a;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.search-section {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 2rem;
+}
+
+.search-container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 300px;
+  height: 50px;
+  border: 2px solid #1a5d1a;
+  border-radius: 25px;
+  padding: 0 20px;
+  font-size: 1.1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.2);
+  border-color: #2d7a2d;
+}
+
+.find-recipes-btn {
+  background-color: #1a5d1a;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.find-recipes-btn:hover {
+  background-color: #2d7a2d;
+  transform: translateY(-2px);
+}
+
+.ingredients-container {
+  width: 100%;
+  max-width: 800px;
+  min-height: 80px;
+  border: 2px dashed #1a5d1a;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+  background-color: #f8f9fa;
+}
+
+.ingredient-tag {
+  background-color: #1a5d1a;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.remove-ingredient {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.remove-ingredient:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.placeholder-text {
+  color: #6c757d;
+  font-style: italic;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 2rem;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    min-width: 100%;
+  }
+
+  .find-recipes-btn {
+    width: 100%;
+  }
+}
