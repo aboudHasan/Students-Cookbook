@@ -213,7 +213,7 @@ async function getRecipes() {
     return;
   }
   const res = await fetch(
-    "https://students-cookbook.onrender.com/api/findrecipes",
+    "https://students-cookbook.onrender.com/api/findRecipes",
     {
       method: "POST",
       headers: {
