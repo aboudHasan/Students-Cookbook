@@ -198,11 +198,14 @@ export const findRecipes = async (req, res, next) => {
 
     // Return error if any invalid ingredients were found
     if (ingredientCheck.length > 0) {
+      console.log(`Problems with these ingredients: ${ingredientCheck}`);
       const error = new Error(
         `Problems with these ingredients: ${ingredientCheck}`
       );
       error.status = 400;
       return next(error);
+    } else {
+      console.log("No problems with ingredients");
     }
 
     // Search for recipes using validated ingredients

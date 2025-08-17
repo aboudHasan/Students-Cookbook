@@ -6,10 +6,26 @@
     <title>Student's Cookbook</title>
     <link href="bootstrap.min.css" rel="stylesheet" />
     <link href="index.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
   </head>
   <body>
     <div class="main-container">
-      <h1 class="app-title">Student's Cookbook</h1>
+      <div class="title-container">
+        <h1 class="app-title">Student's Cookbook</h1>
+        <button
+          class="help-button"
+          data-bs-toggle="modal"
+          data-bs-target="#helpModal"
+          aria-label="Help"
+          title="Get help using Student's Cookbook"
+        >
+          <i class="fas fa-question"></i>
+        </button>
+      </div>
+
       <div class="search-section">
         <div class="search-container">
           <input
@@ -25,10 +41,74 @@
         </div>
         <div id="errorMessage" class="error-message"></div>
       </div>
+
       <div class="ingredients-container" id="ingredientsContainer">
         <div class="placeholder-text">Your ingredients will appear here...</div>
       </div>
     </div>
+
+    <div
+      class="modal fade"
+      id="helpModal"
+      tabindex="-1"
+      aria-labelledby="helpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="helpModalLabel">
+              How to Use Student's Cookbook
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h6 class="fw-bold text-success mb-3">Getting Started</h6>
+            <p>
+              Welcome to Student's Cookbook. This website helps you find recipes
+              based on ingredients you already have.
+            </p>
+
+            <h6 class="fw-bold text-success mb-3 mt-4">How It Works</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <strong>1. Add Ingredients:</strong> Type any ingredient in the
+                search box and press Enter to add it to your list.
+              </li>
+              <li class="mb-2">
+                <strong>2. Find Recipes:</strong> Click "Find Recipes" to search
+                for dishes you can make.
+              </li>
+              <li class="mb-2">
+                <strong>3. Explore Results:</strong> Browse recipes organized by
+                how well they match your available ingredients.
+              </li>
+            </ul>
+
+            <h6 class="fw-bold text-success mb-3 mt-4">Change log</h6>
+            <p>
+              v1 (August 16, 2025): Deployed. Currently functional only on
+              Google, Chrome, and Firefox.<br />Status: Actively working on it
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-got-it"
+              data-bs-dismiss="modal"
+            >
+              Got it!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="bootstrap.bundle.min.js"></script>
     <script src="index.js"></script>
   </body>

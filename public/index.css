@@ -34,6 +34,10 @@ body {
   text-align: center;
 }
 
+.title-container .app-title {
+  margin-bottom: 0;
+}
+
 .search-section {
   width: 100%;
   max-width: 800px;
@@ -353,5 +357,127 @@ body {
 
   .column-header h2 {
     font-size: 1.1rem;
+  }
+}
+/* Help Button Styling */
+.help-button {
+  background-color: #1a5d1a;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  vertical-align: middle;
+  flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+.help-button:hover {
+  background-color: #2d7a2d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 93, 26, 0.3);
+}
+
+.help-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 93, 26, 0.2);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .title-container {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .help-button {
+    margin-left: 0;
+  }
+}
+
+/* Title container to align title and help button */
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Modal Customization */
+.modal-content {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #1a5d1a, #2d7a2d);
+  color: white;
+  border-radius: 15px 15px 0 0;
+  border-bottom: none;
+  padding: 20px 30px;
+}
+
+.modal-title {
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.btn-close {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+.modal-body {
+  padding: 30px;
+  background-color: #f8f9fa;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.modal-footer {
+  border-top: none;
+  padding: 20px 30px;
+  background-color: #f8f9fa;
+  border-radius: 0 0 15px 15px;
+}
+
+.btn-got-it {
+  background-color: #1a5d1a;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-got-it:hover {
+  background-color: #2d7a2d;
+  transform: translateY(-1px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .title-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .help-button {
+    margin-left: 0;
   }
 }

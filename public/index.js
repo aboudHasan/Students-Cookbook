@@ -232,6 +232,25 @@ async function getRecipes() {
   return recipes;
 }
 
+function initializeHelpModal() {
+  const helpModal = document.getElementById("helpModal");
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      const modal = bootstrap.Modal.getInstance(helpModal);
+      if (modal && modal._isShown) {
+        modal.hide();
+      }
+    }
+  });
+
+  helpModal.addEventListener("shown.bs.modal", function () {
+    const closeButton = helpModal.querySelector(".btn-close");
+    if (closeButton) closeButton.focus();
+  });
+}
+
+// Event listeners
 ingredientInput.addEventListener("input", clearError);
 ingredientInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
@@ -247,7 +266,8 @@ findRecipesButton.addEventListener("click", async () => {
   }
 });
 
-// Focus on input when page loads
+// Initialize everything when page loads
 window.addEventListener("load", () => {
   ingredientInput.focus();
+  initializeHelpModal();
 });

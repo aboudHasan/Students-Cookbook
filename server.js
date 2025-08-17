@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import errorHandler from "./middleware/error.js";
 import router from "./routes/router.js";
+import cors from "cors";
 
 // ES modules compatibility - resolve current directory path
 // Required because __dirname is not available in ES modules
@@ -18,7 +19,6 @@ const __dirname = path.dirname(__filename);
 
 // Server configuration
 const port = process.env.PORT || 5000; // Use environment PORT or default to 5000
-const apiKey = process.env.API_KEY; // Spoonacular API key from environment variables
 
 // Initialize Express application
 const app = express();
@@ -38,7 +38,7 @@ const corsOptions = {
           "http://localhost:5000",
         ],
   credentials: true, // Allow cookies and credentials
-  methods: ["GET", "POST", "OPTIONS"], // Only the methods you actually use
+  methods: ["GET", "POST", "OPTIONS"],
   allowedHeaders: [
     "Content-Type",
     "Authorization",
@@ -46,6 +46,8 @@ const corsOptions = {
     "Accept",
   ],
 };
+
+app.use(cors(corsOptions));
 
 // Parse incoming JSON requests (Content-Type: application/json)
 // Enables req.body to contain parsed JSON data
