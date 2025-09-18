@@ -31,7 +31,7 @@ const app = express();
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
-      ? ["https://students-cookbook.onrender.com/"]
+      ? ["https://students-cookbook.onrender.com"]
       : [
           // Local development origins
           "http://localhost:8080",
