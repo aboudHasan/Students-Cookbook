@@ -4,3 +4,5 @@ Simply enter in your available ingredients, and once you've finished, hit find r
 Ideal for students who do not have access to many ingredients and don't know what to make for dinner besides plain chicken and rice.
 
 Status: Usable, but still needs work.
+
+students-cookbook.onrender.com
